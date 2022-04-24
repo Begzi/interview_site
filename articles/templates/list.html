@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние статьи{% endblock %}
+
+{% block content%}
+
+    {% if latest_articles_list %}
+        {% for a in latest_articles_list %}
+            <h2>Статья: {{a.title}}</h2>
+            <a href="{% url 'articles:detail' a.id %}"><button type="button">Перейти к статьте</button> </a>
+            <br>
+        {% endfor %}
+
+        <nav class='list-pages'>
+            <ul>
+                {% for p in latest_articles_list.paginator.page_range %}
+                <li class='page-num'>
+                    <a href="?page={{ p }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% else %}
+        Статьи не найдены
+    {% endif %}
+<br>
+<br>
+<a  class="new_article" href="{% url 'articles:add_article'  %}" > <button type="button"> Добавить новую статью</button></a>
+
+
+
+
+{% endblock %}
